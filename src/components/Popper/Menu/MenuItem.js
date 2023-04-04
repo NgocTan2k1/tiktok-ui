@@ -5,9 +5,9 @@ import Button from '~/components/Button';
 
 const cx = classNames.bind(styles);
 
-function MenuItem({ data }) {
+function MenuItem({ data, onCick }) {
     return (
-        <Button className={cx('menu-item')} lefticon={data.icon} to={data.to}>
+        <Button className={cx('menu-item')} lefticon={data.icon} to={data.to} onClick={onCick}>
             {data.title}
         </Button>
     );
