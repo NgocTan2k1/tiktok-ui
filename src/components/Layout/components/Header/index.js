@@ -7,7 +7,6 @@ import {
     faEarthAsia,
     faCircleQuestion,
     faKeyboard,
-    faCloudUpload,
     faUser,
     faCoins,
     faGear,
@@ -25,6 +24,8 @@ import { Wrapper as PopperWrapper } from '~/components/Popper';
 import AccountItem from '~/components/AccountItem';
 import Button from '~/components/Button';
 import Menu from '~/components/Popper/Menu';
+import { InboxIcon, MessageIcon, SearchIcon, UploadIcon } from '~/components/Icons';
+import Image from '~/components/Image';
 
 const cx = classNames.bind(styles);
 
@@ -110,16 +111,16 @@ function Header() {
                 <img src={images.logo} alt="image-tiktok" />
 
                 <HeadlessTippy
-                    visible={searchRusult.length > 0}
+                    trigger="click"
                     interactive={true}
                     render={(attrs) => (
                         <div className={cx('search-result')} tabIndex="-1" {...attrs}>
                             <PopperWrapper>
                                 <h4 className={cx('search-title')}>Account</h4>
-                                <AccountItem />
-                                <AccountItem />
-                                <AccountItem />
-                                <AccountItem />
+                                <AccountItem name="Nguyệt Dễ Thương" nickname="nguyetdethuong" srcImg="https://ngoctan2k1.github.io/MyHeart/img/0.jpg" />
+                                <AccountItem name="Nguyệt So Cute" nickname="nguyetcute" srcImg="https://ngoctan2k1.github.io/MyHeart/img/8.jpg" />
+                                <AccountItem name="Nguyệt Đáng Yêu" nickname="cobedangyeu" srcImg="https://ngoctan2k1.github.io/MyHeart/img/9.jpg" />
+                                <AccountItem name="Nguyệt Nguyễn" nickname="nguyetvippro" srcImg="https://ngoctan2k1.github.io/MyHeart/img/21.jpg" />
                             </PopperWrapper>
                         </div>
                     )}
@@ -133,16 +134,28 @@ function Header() {
                         {/* loading */}
 
                         <button className={cx('search-btn')}>
-                            <FontAwesomeIcon icon={faMagnifyingGlass} />
+                            <SearchIcon />
                         </button>
                     </div>
                 </HeadlessTippy>
                 <div className={cx('action')}>
                     {currentUser ? (
                         <>
-                            <Tippy delay={[0, 200]} content="Upload video" placement="bottom">
+                            <Tippy delay={[0, 50]} content="Upload video" placement="bottom">
                                 <button className={cx('action-btn')}>
-                                    <FontAwesomeIcon icon={faCloudUpload} />
+                                    <UploadIcon />
+                                </button>
+                            </Tippy>
+
+                            <Tippy delay={[0, 50]} content="Message" placement="bottom">
+                                <button className={cx('action-btn')}>
+                                    <MessageIcon />
+                                </button>
+                            </Tippy>
+                            <Tippy delay={[0, 50]} content="Inbox" placement="bottom">
+                                <button className={cx('action-btn')}>
+                                    <InboxIcon />
+                                    <span className={cx('badge')}>12</span>
                                 </button>
                             </Tippy>
 
@@ -160,7 +173,12 @@ function Header() {
                     )}
                     <Menu items={currentUser ? userMenu : MENU_ITEMS} onChange={handleMenuChange}>
                         {currentUser ? (
-                            <img className={cx('user-avatar')} src="https://ngoctan2k1.github.io/MyHeart/img/0.jpg" alt="Nguyệt Nguyễn" />
+                            <Image
+                                className={cx('user-avatar')}
+                                src="https://ngoctan2k1.github.io/MyHeart/img/22.jpg"
+                                alt="Nguyệt Nguyễn"
+                                fallback="https://fullstack.edu.vn/static/media/f8-icon.18cd71cfcfa33566a22b.png"
+                            />
                         ) : (
                             <button className={cx('more-btn')}>
                                 <FontAwesomeIcon icon={faEllipsisVertical} />

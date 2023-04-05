@@ -36,7 +36,7 @@ function Menu({ children, items = [], onChange = defaultFn }) {
 
     return (
         <Tippy
-            visible
+            // visible
             offset={[12, 8]}
             delay={[0, 800]}
             placement="bottom-end"
