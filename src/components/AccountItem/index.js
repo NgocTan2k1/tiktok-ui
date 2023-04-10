@@ -18,7 +18,7 @@ function AccountItem({ data, name, nickname, srcImg }) {
     } else {
     }
     return (
-        <Link to={`@${newData.nickname}`} className={cx('wrapper')}>
+        <Link to={`/@${newData.nickname}`} className={cx('wrapper')}>
             <Image className={cx('avatar')} src={newData.avatar} alt={newData.full_name} />
             <div className={cx('info')}>
                 <h4 className={cx('name')}>
