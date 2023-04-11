@@ -18,11 +18,13 @@
     input {
         flex: 1;
         height: 100%;
+        padding-right: 42px;
         color: var(--black);
         font-size: 1.6rem;
         caret-color: (--primary);
         background-color: transparent;
         color: rgba(22, 24, 35, 0.75);
+        font-family: var(--font-family);
     }
 
     input:not(:placeholder-shown) ~ .search-btn {
@@ -59,6 +61,7 @@
 
 .clear,
 .loading {
+    display: flex;
     position: absolute;
     right: calc(var(--search-button-width) + 16px);
     top: 50%;
