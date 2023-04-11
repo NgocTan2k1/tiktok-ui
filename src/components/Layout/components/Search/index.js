@@ -1,10 +1,12 @@
+import { useEffect, useState, useRef } from 'react';
 import { faCircleXmark, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import HeadlessTippy from '@tippyjs/react/headless';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames/bind';
-import { useEffect, useState, useRef } from 'react';
 
 import { useDebounce } from '~/hooks';
+import * as searchServices from '~/apiServices/searchServices';
+// import * as request from '~/utils/request';
 import { Wrapper as PopperWrapper } from '~/components/Popper';
 import AccountItem from '~/components/AccountItem';
 import { SearchIcon } from '~/components/Icons';
@@ -18,7 +20,7 @@ function Search() {
     const [showResult, setShowResult] = useState(true);
     const [loading, setLoading] = useState(false);
 
-    const debounced = useDebounce(searchValue, 500);
+    const debounced = useDebounce(searchValue, 800);
 
     const inputRef = useRef();
 
@@ -27,20 +29,47 @@ function Search() {
             setSearchResult([]);
             return;
         }
-        setLoading(true);
 
-        fetch(`https://tiktok.fullstack.edu.vn/api/users/search?q=${encodeURIComponent(debounced)}&type=less`)
-            .then((res) => res.json())
-            .then((res) => {
-                setSearchResult(res.data);
-                setLoading(false);
-            })
-            .catch(() => {
-                setLoading(false);
-                setSearchResult([1]);
-            });
+        const fetchApi = async () => {
+            setLoading(true);
 
-        setLoading(false);
+            const result = await searchServices.search(debounced);
+
+            setSearchResult(result);
+
+            setLoading(false);
+        };
+
+        fetchApi();
+        // setLoading(true);
+
+        // const fetchApi = async () => {
+        //     try {
+        //         const res = await request.get(`users/search`, {
+        //             params: {
+        //                 q: debounced,
+        //                 type: 'less',
+        //             },
+        //         });
+        //         console.log(res.data);
+        //         setSearchResult(res.data);
+        //         setLoading(false);
+        //     } catch (error) {
+        //         console.log('no call api: ', error);
+        //         const fakeresult = [
+        //             {
+        //                 tick: true,
+        //                 avatar: 'https://ngoctan2k1.github.io/MyHeart/img/33.jpg',
+        //                 full_name: 'Ngọc Tân',
+        //                 nickname: 'ngoctan',
+        //             },
+        //         ];
+        //         console.log('fakeresult: ', fakeresult);
+        //         setLoading(false);
+        //         setSearchResult(fakeresult);
+        //     }
+        // };
+        // fetchApi();
     }, [debounced]);
 
     const handleClear = () => {
@@ -63,8 +92,8 @@ function Search() {
                 <div className={cx('search-result')} tabIndex="-1" {...attrs}>
                     <PopperWrapper>
                         <h4 className={cx('search-title')}>Account</h4>
-                        {searchResult.map((result) => (
-                            <AccountItem key={result.id} data={result} />
+                        {searchResult.map((result, index) => (
+                            <AccountItem key={index} data={result} />
                         ))}
 
                         <AccountItem

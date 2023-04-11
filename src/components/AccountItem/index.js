@@ -16,6 +16,10 @@ function AccountItem({ data, name, nickname, srcImg }) {
         newData['full_name'] = name;
         newData['nickname'] = nickname;
     } else {
+        newData['tick'] = data.tick;
+        newData['avatar'] = data.avatar;
+        newData['full_name'] = data.full_name;
+        newData['nickname'] = data.nickname;
     }
     return (
         <Link to={`/@${newData.nickname}`} className={cx('wrapper')}>
