@@ -94,66 +94,68 @@ function Search() {
     // }
 
     return (
-        <HeadlessTippy
-            interactive={true}
-            // trigger="click"
-            visible={showResult && searchResult.length > 0}
-            onClickOutside={handleHideResult}
-            render={(attrs) => (
-                <div className={cx('search-result')} tabIndex="-1" {...attrs}>
-                    <PopperWrapper>
-                        <h4 className={cx('search-title')}>Account</h4>
-                        {searchResult.map((result, index) => (
-                            <AccountItem key={index} data={result} />
-                        ))}
+        // Using a wrapper <div> or <span> tag around the reference element solves this by creating a new parentNode context.
+        <div>
+            <HeadlessTippy
+                interactive={true}
+                visible={showResult && searchResult.length > 0}
+                onClickOutside={handleHideResult}
+                render={(attrs) => (
+                    <div className={cx('search-result')} tabIndex="-1" {...attrs}>
+                        <PopperWrapper>
+                            <h4 className={cx('search-title')}>Account</h4>
+                            {searchResult.map((result, index) => (
+                                <AccountItem key={index} data={result} />
+                            ))}
 
-                        <AccountItem
-                            name={`Nguyệt Dễ Thương`}
-                            nickname={`nguyetdethuong`}
-                            srcImg={`https://ngoctan2k1.github.io/MyHeart/img/0.jpg`}
-                        />
-                        <AccountItem
-                            name={`Nguyệt So Cute`}
-                            nickname={`nguyetcute`}
-                            srcImg={`https://ngoctan2k1.github.io/MyHeart/img/8.jpg`}
-                        />
-                        <AccountItem
-                            name={`Nguyệt Đáng Yêu`}
-                            nickname="cobedangyeu"
-                            srcImg={`https://ngoctan2k1.github.io/MyHeart/img/9.jpg`}
-                        />
-                        <AccountItem
-                            name={`Nguyệt Nguyễn`}
-                            nickname={`nguyetvippro`}
-                            srcImg={`https://ngoctan2k1.github.io/MyHeart/img/21.jpg`}
-                        />
-                    </PopperWrapper>
-                </div>
-            )}
-        >
-            <div className={cx('search')}>
-                <input
-                    ref={inputRef}
-                    value={searchValue}
-                    placeholder="Search accounts and videos"
-                    spellCheck="false"
-                    onChange={handleChange}
-                    onFocus={() => setShowResult(true)}
-                />
-
-                {!!searchValue && !loading && (
-                    <button onClick={handleClear} className={cx('clear')}>
-                        <FontAwesomeIcon icon={faCircleXmark} />
-                    </button>
+                            <AccountItem
+                                name={`Nguyệt Dễ Thương`}
+                                nickname={`nguyetdethuong`}
+                                srcImg={`https://ngoctan2k1.github.io/MyHeart/img/0.jpg`}
+                            />
+                            <AccountItem
+                                name={`Nguyệt So Cute`}
+                                nickname={`nguyetcute`}
+                                srcImg={`https://ngoctan2k1.github.io/MyHeart/img/8.jpg`}
+                            />
+                            <AccountItem
+                                name={`Nguyệt Đáng Yêu`}
+                                nickname="cobedangyeu"
+                                srcImg={`https://ngoctan2k1.github.io/MyHeart/img/9.jpg`}
+                            />
+                            <AccountItem
+                                name={`Nguyệt Nguyễn`}
+                                nickname={`nguyetvippro`}
+                                srcImg={`https://ngoctan2k1.github.io/MyHeart/img/21.jpg`}
+                            />
+                        </PopperWrapper>
+                    </div>
                 )}
+            >
+                <div className={cx('search')}>
+                    <input
+                        ref={inputRef}
+                        value={searchValue}
+                        placeholder="Search accounts and videos"
+                        spellCheck="false"
+                        onChange={handleChange}
+                        onFocus={() => setShowResult(true)}
+                    />
 
-                {loading && <FontAwesomeIcon className={cx('loading')} icon={faSpinner} />}
+                    {!!searchValue && !loading && (
+                        <button onClick={handleClear} className={cx('clear')}>
+                            <FontAwesomeIcon icon={faCircleXmark} />
+                        </button>
+                    )}
 
-                <button className={cx('search-btn')} onMouseDown={(e) => e.preventDefault()}>
-                    <SearchIcon />
-                </button>
-            </div>
-        </HeadlessTippy>
+                    {loading && <FontAwesomeIcon className={cx('loading')} icon={faSpinner} />}
+
+                    <button className={cx('search-btn')} onMouseDown={(e) => e.preventDefault()}>
+                        <SearchIcon />
+                    </button>
+                </div>
+            </HeadlessTippy>
+        </div>
     );
 }
 

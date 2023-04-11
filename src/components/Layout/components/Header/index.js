@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/img-redundant-alt */
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     faEllipsisVertical,
